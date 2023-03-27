@@ -15,6 +15,15 @@ public class BussBokning {
     Boolean finns = false;
     String namnFör;
     String namnEft;
+    int valueV;
+    int valueB;
+    int valueP;
+    int summa;
+    int sub;
+    String SubString;
+    int SubValue;
+    int tom;
+    int diff;
 
     BussBokning() {
 
@@ -34,48 +43,43 @@ public class BussBokning {
             val = scan.nextInt();
 
             switch (val) {
-                case 1:
+                case 1 -> {
                     Bokning();
-                    break;
-
-                case 2:
+                }
+                case 2 -> {
                     AvBokning();
-                    break;
-
-                case 3:
+                }
+                case 3 -> {
                     SeBokning();
-                    break;
-
-                case 4:
+                }
+                case 4 -> {
                     SkrivLediga();
-
-                    break;
-
-                default:
+                }
+                case 5 -> {
+                    BeräknaVinst();
+                }
+                case 6 -> {
+                    SkrivÅldrar();
+                }
+                case 7 -> {
+                }
+                default -> {
                     System.out.println("Fel input, skriv ett nummer mellan 1-7");
-                    break;
-
-                case 7:
+                }
             }
-
-        }while(val!=7);
+        } while (val != 7);
     }
 
+    public void Bokning() {
 
-
-
-    public void Bokning(){
-
-        for (int i = 0; i < PLATSERNUM.length; i++){
-            if (PLATSERNUM[i] == 0 ){
-
+        for (int i = 0; i < PLATSERNUM.length; i++) {
+            if (PLATSERNUM[i] == 0) {
 
                 System.out.print("Ange förnamn: ");
                 namnFör = scan.next();
 
                 System.out.print("Ange efternamn: ");
                 namnEft = scan.next();
-
 
                 System.out.println("Ange kön: ");
                 System.out.println("1. Man");
@@ -85,7 +89,7 @@ public class BussBokning {
                 System.out.print("> ");
                 int könval = scan.nextInt();
 
-                do{
+                do {
                     switch (könval) {
                         case 1 -> kön = "Man";
                         case 2 -> kön = "Kvinna";
@@ -99,14 +103,14 @@ public class BussBokning {
                             könval = scan.nextInt();
                         }
                     }
-                }while(kön == null);
+                } while (kön == null);
 
                 System.out.println("Ange personnummer: ");
                 System.out.print("> ");
                 personnummer = scan.nextInt();
 
-                for(int j = 0; j < PLATSERNUM.length; j++){
-                    if(PLATSERNUM[j] == personnummer || PLATSERNAMN[j].equalsIgnoreCase(namnFör+namnEft)){
+                for (int j = 0; j < PLATSERNUM.length; j++) {
+                    if (PLATSERNUM[j] == personnummer || PLATSERNAMN[j].equalsIgnoreCase(namnFör + namnEft)) {
                         System.out.println("Det finnns redan en bokning för dem här uppgifterna");
                         fullt = true;
                     }
@@ -115,9 +119,9 @@ public class BussBokning {
                 if (!fullt) {
                     PLATSERNUM[i] = personnummer;
                     PLATSERKÖN[i] = kön;
-                    PLATSERNAMN[i] = namnFör+namnEft;
+                    PLATSERNAMN[i] = namnFör + namnEft;
                     System.out.println("Bokningen lyckades");
-                    System.out.println("Plats \""+(i+1)+"\" är din");
+                    System.out.println("Plats \"" + (i + 1) + "\" är din");
                 }
 
                 fullt = false;
@@ -127,10 +131,7 @@ public class BussBokning {
         }
     }
 
-
-
-
-    public void AvBokning(){
+    public void AvBokning() {
 
         finns = false;
 
@@ -140,7 +141,7 @@ public class BussBokning {
         System.out.print("> ");
         val = scan.nextInt();
 
-        switch (val){
+        switch (val) {
             case 1 -> {
                 System.out.println("Ange personummer ");
                 System.out.print("> ");
@@ -155,7 +156,7 @@ public class BussBokning {
                         break;
                     }
                 }
-                if(!finns){
+                if (!finns) {
                     System.out.println("Det finnns ingen befintlig bokning för dem här uppgifterna");
                 }
             }
@@ -169,7 +170,7 @@ public class BussBokning {
                 namnEft = scan.next();
 
                 for (int j = 0; j < PLATSERNAMN.length; j++) {
-                    if (PLATSERNAMN[j].equalsIgnoreCase(namnFör+namnEft)) {
+                    if (PLATSERNAMN[j].equalsIgnoreCase(namnFör + namnEft)) {
                         System.out.println("Plats \"" + (j + 1) + "\" är nu avbokad");
                         finns = true;
                         PLATSERNAMN[j] = "null";
@@ -177,14 +178,14 @@ public class BussBokning {
                         break;
                     }
                 }
-                if(!finns){
+                if (!finns) {
                     System.out.println("Det finnns ingen befintlig bokning för dem här uppgifterna");
                 }
             }
         }
     }
 
-    public void SeBokning(){
+    public void SeBokning() {
         finns = false;
 
         System.out.println("Vill du checka för namn eller personnummer?");
@@ -243,7 +244,49 @@ public class BussBokning {
         }
     }
 
+
+    public void BeräknaVinst() {
+        for (int i = 0; i < PLATSERNUM.length; i++) {
+
+            sub = (PLATSERNUM[i]);
+            if (sub != 0) {
+                SubString = String.valueOf(sub).substring(0, 4);
+                SubValue = Integer.parseInt(SubString);
+            }
+
+            if (sub == 0) {
+                tom += 1;
+            } else {
+
+                diff = 2023 - SubValue;
+
+                if (diff < 18) {
+                    valueB += 1;
+
+                } else if (diff > 69) {
+                    valueP += 1;
+
+                } else {
+                    valueV += 1;
+                }
+            }
+            if (valueV+valueB+valueB+tom == 21){
+                break;
+            }
+        }
+        summa = valueB * 150 + valueP * 200 + valueV * 300;
+        System.out.println(summa);
+        System.out.println(valueP);
+        System.out.println(valueB);
+        System.out.println(valueV);
+
+    }
+    public void SkrivÅldrar () {
+
+    }
 }
+
+
 
 
 
