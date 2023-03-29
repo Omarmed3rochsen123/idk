@@ -43,29 +43,14 @@ public class BussBokning {
             val = scan.nextInt();
 
             switch (val) {
-                case 1 -> {
-                    Bokning();
-                }
-                case 2 -> {
-                    AvBokning();
-                }
-                case 3 -> {
-                    SeBokning();
-                }
-                case 4 -> {
-                    SkrivLediga();
-                }
-                case 5 -> {
-                    BeräknaVinst();
-                }
-                case 6 -> {
-                    SkrivÅldrar();
-                }
-                case 7 -> {
-                }
-                default -> {
-                    System.out.println("Fel input, skriv ett nummer mellan 1-7");
-                }
+                case 1 -> {Bokning();}
+                case 2 -> {AvBokning();}
+                case 3 -> {SeBokning();}
+                case 4 -> {SkrivLediga();}
+                case 5 -> {BeräknaVinst();}
+                case 6 -> {SkrivÅldrar();}
+                case 7 -> { }
+                default -> {System.out.println("Fel input, skriv ett nummer mellan 1-7");}
             }
         } while (val != 7);
     }
@@ -127,7 +112,6 @@ public class BussBokning {
                 fullt = false;
                 break;
             }
-
         }
     }
 
@@ -275,13 +259,38 @@ public class BussBokning {
             }
         }
         summa = valueB * 150 + valueP * 200 + valueV * 300;
-        System.out.println(summa);
-        System.out.println(valueP);
-        System.out.println(valueB);
-        System.out.println(valueV);
+        System.out.println(summa+" kr totalt");
 
     }
     public void SkrivÅldrar () {
+        for (int i = 0; i < PLATSERNUM.length; i++) {
+
+            sub = (PLATSERNUM[i]);
+            if (sub != 0) {
+                SubString = String.valueOf(sub).substring(0, 4);
+                SubValue = Integer.parseInt(SubString);
+            }
+
+            if (sub == 0) {
+                tom += 1;
+            } else {
+
+                diff = 2023 - SubValue;
+
+                if (diff < 18) {
+                    valueB += 1;
+
+                } else if (diff > 69) {
+                    valueP += 1;
+
+                } else {
+                    valueV += 1;
+                }
+            }
+            if (valueV+valueB+valueB+tom == 21){
+                break;
+            }
+        }
 
     }
 }
