@@ -361,16 +361,20 @@ public class BussBokning {
     public void SkrivÅldrar () {
 
         int n = PLATSERNUM.length;
+        int tempÅlder;
+        int tempPlats;
+
         SORTERADNUM = Arrays.copyOf(PLATSERNUM, 21);
         SORTERADNAMN = Arrays.copyOf(PLATSERNAMN, 21);
         SORTERADPLATS = Arrays.copyOf(BOKADPLATS, 21);
 
+        //för varje plats så den är nested
         for (int i = 0; i < n-1; i++) {
             for (int j = 0; j < n-i-1; j++) {
                 if (SORTERADNUM[j] > SORTERADNUM[j+1]) {
 
                     //Sorterar åldern
-                    int tempÅlder = SORTERADNUM[j];
+                    tempÅlder = SORTERADNUM[j];
                     SORTERADNUM[j] = SORTERADNUM[j+1];
                     SORTERADNUM[j+1] = tempÅlder;
 
@@ -380,7 +384,7 @@ public class BussBokning {
                     SORTERADNAMN[j+1] = tempNamn;
 
                     //Sorterar platserna
-                    int tempPlats = SORTERADPLATS[j];
+                    tempPlats = SORTERADPLATS[j];
                     SORTERADPLATS[j] = SORTERADPLATS[j+1];
                     SORTERADPLATS[j+1] = tempPlats;
                 }
@@ -390,7 +394,7 @@ public class BussBokning {
         //Skriver ut allt
         for (int i = 0; i < n; i++) {
             if (SORTERADNUM[i] != 0) {
-                System.out.println(SORTERADNUM[i] + SORTERADNAMN[i] +" Plats nummer "+ (SORTERADPLATS[i]+1));
+                System.out.println(SORTERADNUM[i] + " " + SORTERADNAMN[i] +" Plats nummer "+ (SORTERADPLATS[i]+1));
             }
         }
     }
