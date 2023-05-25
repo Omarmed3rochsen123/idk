@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class BussBokning {
 
+    
     Scanner scan = new Scanner(System.in);
 
     static String[] PLATSERNAMN = new String[21];
