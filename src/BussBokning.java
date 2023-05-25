@@ -48,7 +48,7 @@ public class BussBokning {
             System.out.println("7. Exit");
             System.out.print("> ");
             check = scan.nextLine();
-            val = intTest(check);
+            val = Kontroll(check);
             check = String.valueOf(val);
 
 
@@ -82,7 +82,7 @@ public class BussBokning {
         System.out.println("2. Inte");
         System.out.print("> ");
         check = scan.nextLine();
-        val = intTest(check);
+        val = Kontroll(check);
         check = String.valueOf(val);
 
         if(check.matches("[0-9]+")){
@@ -135,7 +135,7 @@ public class BussBokning {
                 System.out.println("4. Vill ej uppge");
                 System.out.print("> ");
                 check = scan.nextLine();
-                könval = intTest(check);
+                könval = Kontroll(check);
                 check = String.valueOf(könval);
 
                 do {
@@ -150,7 +150,7 @@ public class BussBokning {
                             System.out.println("Ange ett tal mellan 1-4");
                             System.out.print("> ");
                             check = scan.nextLine();
-                            könval = intTest(check);
+                            könval = Kontroll(check);
                             check = String.valueOf(könval);
                         }
                     }
@@ -200,10 +200,10 @@ public class BussBokning {
         System.out.println("2. Namn");
         System.out.print("> ");
         check = scan.nextLine();
-        val = intTest(check);
+        val = Kontroll(check);
         check = String.valueOf(val);
 
-        if(check.matches("[0-9]+")){
+
             switch (val) {
                 case 1 -> {
                     System.out.println("Ange personummer, ååååmmdd: ");
@@ -255,10 +255,10 @@ public class BussBokning {
                         System.out.println("Det finnns ingen befintlig bokning för dem här uppgifterna, kolla så du skrev rätt");
                     }
                 }
+                default -> {
+                    System.out.println("Skriv bara 1 eller 2");
+                }
             }
-        } else {
-            System.out.println("Skriv bara in ett nummer mellan 1-7");
-        }
     }
 
     public void SeBokning() {
@@ -269,7 +269,7 @@ public class BussBokning {
         System.out.println("2. Namn");
         System.out.print("> ");
         check = scan.nextLine();
-        val = intTest(check);
+        val = Kontroll(check);
         check = String.valueOf(val);
 
         if (check.matches("[0-9]+")){
@@ -411,7 +411,7 @@ public class BussBokning {
         }
     }
 
-    static int intTest(String check){
+    static int Kontroll(String check){
 
         Scanner scan = new Scanner(System.in);
 
