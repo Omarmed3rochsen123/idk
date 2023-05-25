@@ -1,6 +1,5 @@
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Scanner;
 
 public class BussBokning {
@@ -25,6 +24,7 @@ public class BussBokning {
     String SubString;
     int index;
     String check;
+    int könval;
     int[] SORTERADNUM = new int[21];
     String[] SORTERADNAMN = new String[21];
     int[] SORTERADPLATS = new int[21];
@@ -47,8 +47,11 @@ public class BussBokning {
             System.out.println("6. Skriv ut åldrar"); //äldst först yngst sist, innehålla alla uppgifter
             System.out.println("7. Exit");
             System.out.print("> ");
-            val = scan.nextInt();
+            check = scan.nextLine();
+            val = intTest(check);
             check = String.valueOf(val);
+
+
 
             if(check.matches("[0-9]+")) {
                 switch (val) {
@@ -78,7 +81,8 @@ public class BussBokning {
         System.out.println("1. Fönsterplats");
         System.out.println("2. Inte");
         System.out.print("> ");
-        val = scan.nextInt();
+        check = scan.nextLine();
+        val = intTest(check);
         check = String.valueOf(val);
 
         if(check.matches("[0-9]+")){
@@ -93,11 +97,9 @@ public class BussBokning {
 
                         }
                     }
-
                     if(fullt){
                         System.out.println("Det finns inga fönsterplatser kvar, kolla gärna om det finns andra vanliga kvar");
                     }
-
                 }
                 case 2 -> {
                     for(int i = 0; i < PLATSERNUM.length; i++){
@@ -118,8 +120,6 @@ public class BussBokning {
             System.out.println("Skriv bara in ett nummer mellan 1-7");
         }
 
-
-
             if (!fullt) {
 
                 System.out.print("Ange förnamn: ");
@@ -134,7 +134,9 @@ public class BussBokning {
                 System.out.println("3. Annnat");
                 System.out.println("4. Vill ej uppge");
                 System.out.print("> ");
-                int könval = scan.nextInt();
+                check = scan.nextLine();
+                könval = intTest(check);
+                check = String.valueOf(könval);
 
                 do {
                     switch (könval) {
@@ -147,7 +149,9 @@ public class BussBokning {
                             kön = null;
                             System.out.println("Ange ett tal mellan 1-4");
                             System.out.print("> ");
-                            könval = scan.nextInt();
+                            check = scan.nextLine();
+                            könval = intTest(check);
+                            check = String.valueOf(könval);
                         }
                     }
                 } while (kön == null);
@@ -155,6 +159,8 @@ public class BussBokning {
                 System.out.println("Ange personnummer, ååååmmdd: ");
                 System.out.print("> ");
                 personnummer = scan.next();
+
+                while(PLATSERNUM[index] == 0){
 
                 if (personnummer.matches("[0-9-]+") && personnummer.length() == 8) { //kollar om värdet för personnumret är rätt
 
@@ -177,6 +183,10 @@ public class BussBokning {
 
                 } else {
                     System.out.println("Skriv bara nummer och i formatet ååååmmdd");
+                    System.out.print("> ");
+                    personnummer = scan.next();
+
+                }
                 }
             }
     }
@@ -189,7 +199,8 @@ public class BussBokning {
         System.out.println("1. Personummer");
         System.out.println("2. Namn");
         System.out.print("> ");
-        val = scan.nextInt();
+        check = scan.nextLine();
+        val = intTest(check);
         check = String.valueOf(val);
 
         if(check.matches("[0-9]+")){
@@ -216,7 +227,9 @@ public class BussBokning {
                         }
                     } else {
                         System.out.println("Skriv bara nummer och i formatet ååååmmdd");
+
                     }
+
                 }
                 case 2 -> {
                     System.out.println("Ange förnamn ");
@@ -255,10 +268,12 @@ public class BussBokning {
         System.out.println("1. Personummer ");
         System.out.println("2. Namn");
         System.out.print("> ");
-        val = scan.nextInt();
+        check = scan.nextLine();
+        val = intTest(check);
         check = String.valueOf(val);
 
         if (check.matches("[0-9]+")){
+
             switch (val) {
                 case 1 -> {
                     System.out.println("Ange personnummer för bokningen");
@@ -301,14 +316,11 @@ public class BussBokning {
                 }
                 default -> {
                     System.out.println("Fel input, skriv 1 eller 2");
-                    System.out.print("> ");
-                    val = scan.nextInt();
                 }
             }
         } else {
             System.out.println("Skriv bara in ett nummer mellan 1-7");
         }
-
     }
 
     public void SkrivLediga() {
@@ -325,23 +337,23 @@ public class BussBokning {
         valueV = 0;
         valueB = 0;
 
-        for(int i = 0; PLATSERNUM.length > i; i++){
+        for (int j : PLATSERNUM) {
 
-            if (PLATSERNUM[i] != 0){
+            if (j != 0) {
 
-                SubString = String.valueOf((PLATSERNUM[i]));
-                sub = Integer.parseInt(SubString.substring(0,4));
+                SubString = String.valueOf(j);
+                sub = Integer.parseInt(SubString.substring(0, 4));
 
-                if(2023 - sub < 18){
-                    valueB +=1;
+                if (2023 - sub < 18) {
+                    valueB += 1;
                 } else if (2023 - sub > 69) {
-                    valueP +=1;
+                    valueP += 1;
                 } else {
-                    valueV +=1;
+                    valueV += 1;
                 }
             }
         }
-        System.out.println(Upptagna(valueB,valueP,valueV));
+        System.out.println(Upptagna(valueB,valueP,valueV)); //checka så värdet blir rätt
     }
 
     public int Upptagna(int valueB, int valueP, int valueV) {
@@ -370,7 +382,7 @@ public class BussBokning {
 
         //för varje plats så den är nested
         for (int i = 0; i < n-1; i++) {
-            for (int j = 0; j < n-i-1; j++) {
+            for (int j = 0; j < n-1-i; j++) {
                 if (SORTERADNUM[j] > SORTERADNUM[j+1]) {
 
                     //Sorterar åldern
@@ -398,4 +410,30 @@ public class BussBokning {
             }
         }
     }
+
+    static int intTest(String check){
+
+        Scanner scan = new Scanner(System.in);
+
+        while(true) {
+            int j = 0;
+            for (int i = 0; i < check.length(); i++) {
+
+                if (!Character.isDigit(check.charAt(i))) {
+                    System.out.println("Fel: "+ check.charAt(i) + " är inte ett nummer");
+
+                } else {
+                    j++;
+                    if (i == j - 1 && j == check.length()) {
+                        return Integer.parseInt(check);
+                    }
+                }
+            }
+            System.out.println("Vänligen skriv bara in nummer");
+            System.out.print("> ");
+            check = scan.nextLine();
+
+        }
+    }
+
 }
